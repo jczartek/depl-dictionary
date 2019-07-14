@@ -1,0 +1,7 @@
+[Plugin]
+Name=Dictionary DEPL German-Poland
+Loader=python3
+Module=depl-dictionary
+Author=Jakub Czartek
+Description=The dictionary DEP German-Poland
+X-Has-Resources=true

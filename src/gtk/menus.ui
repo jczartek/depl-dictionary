@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="dict-menu">
+    <section id="depl-dictionary-section">
+      <attribute name="label" translatable="yes">DEPL Dictionary German-Polish</attribute>
+      <item>
+        <attribute name="label" translatable="yes">German-Polish</attribute>
+        <attribute name="action">win.switch-dict</attribute>
+        <attribute name="target">depl-dictionary-german-polish</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
