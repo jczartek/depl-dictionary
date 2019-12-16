@@ -14,9 +14,11 @@ DICT_ID       = "depl-dictionary-german-polish"
 
 class DeplWin(GObject.Object, Gydict.WindowAddin):
     def do_load(self, win):
+        self.id_menu = Gio.Application.get_default().get_menu_manager().add_resource("resource:///plugins/depl-dictionary/gtk/menus.ui")
         win.get_dict_manager().insert_dict(DeplDict(identifier=DICT_ID), DICT_ID)
 
     def do_unload(self, win):
+        Gio.Application.get_default().get_menu_manager().remove(self.id_menu)
         win.get_dict_manager().remove_dict(DICT_ID)
 
 
@@ -38,14 +40,6 @@ class Parser(HTMLParser):
 
     def get_parsed_string(self):
         return self.s.str
-
-    def get_attr_list(self):
-        attr_list = Pango.AttrList.new()
-
-        for attr in self.stack:
-            Gydict.TextAttribute.insert_attr_to_list (attr_list, attr)
-
-        return attr_list
 
     def handle_starttag(self, tag, attrs):
         if tag == "b":
@@ -124,9 +118,9 @@ class DeplDict(Gydict.Dict):
         parser = Parser()
         parser.feed(text)
 
-        attr_list = Pango.AttrList.new()
+        attr_list = Gydict.TextAttrList.new()
         for attr in parser.to_apply:
-            Gydict.TextAttribute.insert_attr_to_list (attr_list, attr)
+            attr_list.insert_before(attr)
 
         return (True, attr_list, parser.get_parsed_string())
 
